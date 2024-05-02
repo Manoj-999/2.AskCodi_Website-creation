@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pizza Booking Website</title>
+<style>
+  body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  input, button {
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Welcome to Pizza Palace!</h1>
+  
+  <label for="pizzaType">Choose Pizza:</label>
+  <select id="pizzaType">
+    <option value="cheese">Cheese Pizza - $10</option>
+    <option value="pepperoni">Pepperoni Pizza - $12</option>
+    <option value="veggie">Veggie Pizza - $14</option>
+  </select>
+  
+  <h2>Toppings:</h2>
+  <input type="checkbox" name="topping" value="mushrooms"> Mushrooms - $1<br>
+  <input type="checkbox" name="topping" value="olives"> Olives - $1<br>
+  <input type="checkbox" name="topping" value="peppers"> Peppers - $1<br>
+  
+  <label for="delivery">Delivery Fee:</label>
+  <input type="checkbox" id="delivery" name="delivery" value="5"> $5 Delivery Fee<br>
+  
+  <h3>Payment Details:</h3>
+  <input type="text" placeholder="Cardholder Name" required><br>
+  <input type="text" placeholder="Card Number (16 digits)" required><br>
+  <input type="text" placeholder="CCV" required><br>
+  <input type="text" placeholder="Expiry Date (MM/YY)" required><br>
+  
+  <button onclick="placeOrder()">Place Order</button>
+</div>
+
+<script>
+function placeOrder() {
+  // Calculate total price
+  let price = 0;
+  const pizzaType = document.getElementById('pizzaType').value;
+  if (pizzaType === 'cheese') {
+    price += 10;
+  } else if (pizzaType === 'pepperoni') {
+    price += 12;
+  } else if (pizzaType === 'veggie') {
+    price += 14;
+  }
+  
+  const toppings = document.getElementsByName('topping');
+  for (let topping of toppings) {
+    if (topping.checked) {
+      price += 1;
+    }
+  }
+  
+  if (document.getElementById('delivery').checked) {
+    price += 5;
+  }
+  
+  // Display order confirmation
+  const cardNumber = document.querySelector("input[placeholder='Card Number']").value;
+  alert(`Your order has been placed with a total price of $${price.toFixed(2)} including tax. 
+  Your order will be delivered in approximately 30 minutes to 1 hour. 
+  Card number ending in ${cardNumber.slice(-4)} was successfully charged.`);
+}
+</script>
+</body>
+</html>
